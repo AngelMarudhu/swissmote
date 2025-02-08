@@ -45,7 +45,7 @@ export const userLogin = async (req, res) => {
         id: existingUser._id,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "20d" }
     );
     res.status(200).json({ user: existingUser, token: token });
   } catch (error) {

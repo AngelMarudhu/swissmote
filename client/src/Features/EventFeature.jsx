@@ -13,7 +13,7 @@ export const createEvent = createAsyncThunk(
           accept: "application/json",
         },
       });
-      console.log(response.data, "response from feature ");
+      // console.log(response.data, "response from feature ");
       return response.data;
     } catch (error) {
       console.log(error, "error from feature ");
@@ -38,13 +38,16 @@ export const editEvent = createAsyncThunk(
           },
         }
       );
-      console.log(response.data, "response from feature ");
+      // console.log(response.data, "response from feature ");
       return response.data;
     } catch (error) {
-      console.log(error, "error from feature ");
+      // console.log(error, "error from feature ");
+      return error.response.data;
     }
   }
 );
+
+/// A SINGLE ASYNC THUNK FUNCTION FOR HANDLING DELETE EVENT NOT ONLY THAT WHEREEVER YOU USED IN SLICE FILE THAT WILL AFFECT DELETE EVENT AND WHAT YOU'RE TRIED EVENT DIFFERENT COMPONENTS AS WELL AS DELETE EVENT
 
 export const deleteEvent = createAsyncThunk("delete/event", async (id) => {
   try {
@@ -54,9 +57,10 @@ export const deleteEvent = createAsyncThunk("delete/event", async (id) => {
         accept: "application/json",
       },
     });
-    console.log(response.data, "response from feature ");
+    // console.log(response.data, "response from feature ");
     return response.data;
   } catch (error) {
-    console.log(error, "error from feature ");
+    // console.log(error, "error from feature ");
+    return error.response.data;
   }
 });

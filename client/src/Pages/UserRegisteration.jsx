@@ -3,6 +3,7 @@ import { userRegister } from "../Features/AuthFeature";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import "../Css/Auth.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const UserRegisteration = () => {
   const [formData, setFormData] = useState({
@@ -16,8 +17,11 @@ const UserRegisteration = () => {
 
   useEffect(() => {
     if (isRegistered) {
-      navigate("/login");
-      localStorage.removeItem("isRegistered");
+      toast.success("Registered Successfully", {
+        onClose: () => navigate("/login"),
+        autoClose: 1000,
+        position: "top-right",
+      });
     }
   }, [isRegistered]);
 
@@ -37,10 +41,17 @@ const UserRegisteration = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(userRegister(formData));
+
+    setTimeout(() => {
+      if (error) {
+        toast.error(error);
+      }
+    }, 100);
   };
 
   return (
     <div className="user-container">
+      <ToastContainer />
       <div className="user-details">
         <h2>User Registeration</h2>
         <form action="" onSubmit={handleSubmit}>
@@ -79,7 +90,6 @@ const UserRegisteration = () => {
             <p>Already have an account</p>
           </a>
         </form>
-        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
   );

@@ -4,14 +4,13 @@ import { getAllEvent } from "../Features/AllEventFeature";
 import "../Css/Events.css";
 import FilterEvents from "./FilterEvents";
 import { deleteEvent } from "../Features/EventFeature";
+import { toast, ToastContainer } from "react-toastify";
 
 const ShowAllEvents = () => {
   const dispatch = useDispatch();
   const hasFetchedEvents = useRef(false);
 
-  const { allEvents, isLoading, error } = useSelector(
-    (state) => state.allEvent
-  );
+  const { allEvents, isLoading } = useSelector((state) => state.allEvent);
 
   const { filteredEvent, isError } = useSelector(
     (state) => state.filteredEvents
@@ -34,6 +33,10 @@ const ShowAllEvents = () => {
     <div className="events-container">
       <FilterEvents />
       <div className="show-all-events">
+        {isError && (
+          <p style={{ color: "red", textAlign: "center" }}>{isError.error}</p>
+        )}
+
         {allEvents.length === 0 ? (
           <h1>Sorry You Don't Have Any Event</h1>
         ) : (
@@ -82,7 +85,6 @@ const ShowAllEvents = () => {
               </div>
             ))}
       </div>
-      {isError && <p style={{ color: "red" }}>{isError.error}</p>}
     </div>
   );
 };

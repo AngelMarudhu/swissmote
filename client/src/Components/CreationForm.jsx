@@ -17,7 +17,7 @@ const CreationForm = () => {
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { events, isLoading, error } = useSelector((state) => state.event);
+  const { events, isLoading } = useSelector((state) => state.event);
 
   const handleSubmit = (e) => {
     e.preventDefault();

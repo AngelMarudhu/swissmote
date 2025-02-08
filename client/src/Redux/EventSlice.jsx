@@ -58,7 +58,6 @@ const eventSlice = createSlice({
     });
 
     // DELETE EVENT REDUCER ASYNC REDUCER
-
     builder.addCase(deleteEvent.fulfilled, (state, action) => {
       // console.log(action.payload.deletedEvent, "action.payload");
       state.events = state.events.filter((event) => {

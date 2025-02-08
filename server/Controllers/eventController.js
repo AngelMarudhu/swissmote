@@ -48,7 +48,7 @@ export const getAllEvents = async (req, res) => {
 export const filterEvents = async (req, res) => {
   try {
     const { cetegory, fromDate, toDate } = req.query;
-    console.log(cetegory, fromDate, toDate);
+    // console.log(cetegory, fromDate, toDate);
 
     const filter = {};
 
@@ -79,7 +79,7 @@ export const editEvent = async (req, res) => {
     const { id } = req.params;
     const { title, description, dateTime, location, cetegory } = req.body;
 
-    console.log(id);
+    // console.log(id);
 
     const updatedEvent = await Event.findByIdAndUpdate(
       id,

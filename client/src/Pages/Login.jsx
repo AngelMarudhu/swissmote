@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { userLogin } from "../Features/AuthFeature";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,15 +10,17 @@ const Login = () => {
     password: "",
   });
 
-  const { user, token, isLoggedIn, isLoading, error } = useSelector(
-    (state) => state.login
-  );
+  const { token, isLoading, error } = useSelector((state) => state.login);
 
   //   console.log(error, "error from login");
 
   useEffect(() => {
     if (token) {
-      navigate("/home");
+      toast.success("Login Successfully", {
+        onClose: () => navigate("/home"),
+        autoClose: 1000,
+        position: "top-right",
+      });
     }
   }, [token]);
 
@@ -27,6 +30,16 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(userLogin(formData));
+
+    setTimeout(() => {
+      if (error) {
+        toast.error(error, {
+          onClose: () => navigate("/"),
+          autoClose: 1000,
+          position: "top-right",
+        });
+      }
+    }, 100);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +48,7 @@ const Login = () => {
 
   return (
     <div className="user-container">
+      <ToastContainer />
       <div className="user-details">
         {isLoading ? <h1>Loading...</h1> : <h1>Login</h1>}
         <form action="" onSubmit={handleSubmit}>
@@ -54,7 +68,6 @@ const Login = () => {
           />
           <button type="submit">Login</button>
         </form>
-        {error && <p>{error}</p>}
       </div>
     </div>
   );

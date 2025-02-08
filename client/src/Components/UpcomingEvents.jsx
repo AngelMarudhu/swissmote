@@ -13,7 +13,7 @@ const UpcomingEvents = () => {
   const [updatedData, setUpdatedData] = useState({});
 
   const handleEditClick = (event) => {
-    console.log(event._id);
+    // console.log(event._id);
     setEditingEvent(event._id);
     setUpdatedData({
       title: event.title,

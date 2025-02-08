@@ -13,7 +13,7 @@ const authUser = async (req, res, next) => {
     req.user = decodeToken.id;
     next();
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(401).json({ message: "Not authorized" });
   }
 };

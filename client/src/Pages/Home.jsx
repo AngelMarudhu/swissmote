@@ -5,13 +5,14 @@ import CreationForm from "../Components/CreationForm";
 import "../Css/Home.css";
 import UpcomingEvents from "../Components/UpcomingEvents";
 import { logout } from "../Redux/AuthSlice";
+import { toast, ToastContainer } from "react-toastify";
 
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.login);
 
-  const { events, isLoading, error } = useSelector((state) => state.event);
+  const { events } = useSelector((state) => state.event);
   // console.log(events);
 
   useEffect(() => {
@@ -27,6 +28,7 @@ const Home = () => {
 
   return (
     <div style={{ height: "100vh" }}>
+      <ToastContainer />
       <div
         className="event-actions"
         style={{ marginTop: "1rem", padding: "10px 20px " }}
