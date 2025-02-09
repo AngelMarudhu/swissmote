@@ -61,7 +61,7 @@ export const filterEvents = async (req, res) => {
         $lte: new Date(toDate),
       };
     }
-
+    //// just like spreading the who created the event
     const events = await Event.find(filter).populate("createdBy", "name email");
 
     if (events.length === 0) {
