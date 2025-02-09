@@ -64,9 +64,8 @@ const ShowAllEvents = ({ userId }) => {
         {allEvents.length === 0 ? (
           <h1>Sorry You Don't Have Any Event</h1>
         ) : (
-          <h1>All Events</h1>
+          <h1>{isLoading ? "Loading...." : "All Events"}</h1>
         )}
-        {isLoading && <p>Loading events...</p>}
         {filteredEvent.length > 0
           ? filteredEvent.map((event) => (
               <div key={event._id} className="event-card">
