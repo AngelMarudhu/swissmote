@@ -77,7 +77,7 @@ const ShowAllEvents = ({ userId }) => {
                 <p>Location: {event.location}</p>
                 <p>Category: {event.cetegory}</p>
                 <p>
-                  Created By: <strong>{event.createdBy.name}</strong>
+                  Created By: <strong>{event.createdBy?.name}</strong>
                 </p>
                 <p>
                   Participants:{" "}
@@ -109,7 +109,7 @@ const ShowAllEvents = ({ userId }) => {
                 <p>Location: {event.location}</p>
                 <p>Category: {event.cetegory}</p>
                 <p>
-                  Created By: <strong>{event.createdBy.name}</strong>
+                  Created By: <strong>{event.createdBy?.name}</strong>
                 </p>
                 <p>
                   Participants:{" "}

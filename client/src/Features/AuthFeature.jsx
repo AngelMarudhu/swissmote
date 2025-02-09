@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// const API_URL = "http://localhost:9000/api/user";
 const API_URL = "https://swissmote-sns7.onrender.com/api/user";
 
 export const userRegister = createAsyncThunk(
