@@ -12,7 +12,15 @@ const allEventSlice = createSlice({
   name: "allEvent",
   initialState,
 
-  reducers: {},
+  reducers: {
+    updateAttendees: (state, action) => {
+      const { eventId, attendees } = action.payload;
+      const index = state.allEvents.findIndex((event) => event._id === eventId);
+      if (index !== -1) {
+        state.allEvents[index].attendees = attendees;
+      }
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(getAllEvent.pending, (state) => {
@@ -37,5 +45,7 @@ const allEventSlice = createSlice({
     });
   },
 });
+
+export const { updateAttendees } = allEventSlice.actions;
 
 export default allEventSlice.reducer;

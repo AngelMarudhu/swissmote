@@ -1,12 +1,14 @@
 import React from "react";
 import ShowAllEvents from "../Components/ShowAllEvents";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const { user } = useSelector((state) => state.login);
+
   return (
     <div>
       <div>
-        <ShowAllEvents />
+        <ShowAllEvents userId={user._id} />
       </div>
     </div>
   );

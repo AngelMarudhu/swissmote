@@ -22,6 +22,7 @@ const UserRegisteration = () => {
         autoClose: 1000,
         position: "top-right",
       });
+      localStorage.removeItem("isRegistered");
     }
   }, [isRegistered]);
 

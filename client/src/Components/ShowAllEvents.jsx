@@ -4,13 +4,18 @@ import { getAllEvent } from "../Features/AllEventFeature";
 import "../Css/Events.css";
 import FilterEvents from "./FilterEvents";
 import { deleteEvent } from "../Features/EventFeature";
+import useSocket from "../Utils/Socket";
+import { updateAttendees } from "../Redux/AllEventSlice";
 import { toast, ToastContainer } from "react-toastify";
 
-const ShowAllEvents = () => {
+const ShowAllEvents = ({ userId }) => {
   const dispatch = useDispatch();
   const hasFetchedEvents = useRef(false);
+  const { isConnectd, joinEvent, socket } = useSocket();
 
   const { allEvents, isLoading } = useSelector((state) => state.allEvent);
+
+  // console.log(allEvents);
 
   const { filteredEvent, isError } = useSelector(
     (state) => state.filteredEvents
@@ -29,8 +34,27 @@ const ShowAllEvents = () => {
     dispatch(deleteEvent(id));
   };
 
+  // console.log(isConnectd);
+
+  useEffect(() => {
+    // console.log("Socket Connected:", isConnectd);
+
+    if (isConnectd) {
+      toast.success("Socket Connected");
+    }
+
+    socket.on("event_joined", (data) => {
+      dispatch(updateAttendees(data));
+    });
+
+    return () => {
+      socket.off("reconnect");
+    };
+  }, [dispatch, isConnectd]);
+
   return (
     <div className="events-container">
+      <ToastContainer />
       <FilterEvents />
       <div className="show-all-events">
         {isError && (
@@ -56,6 +80,18 @@ const ShowAllEvents = () => {
                 <p>
                   Created By: <strong>{event.createdBy.name}</strong>
                 </p>
+                <p>
+                  Participants:{" "}
+                  <span
+                    style={{
+                      color: "green",
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {event?.attendees?.length}
+                  </span>
+                </p>
                 <div className="event-actions">
                   <button>Join Event</button>
                   <button onClick={() => handleDelete(event._id)}>
@@ -76,8 +112,22 @@ const ShowAllEvents = () => {
                 <p>
                   Created By: <strong>{event.createdBy.name}</strong>
                 </p>
+                <p>
+                  Participants:{" "}
+                  <span
+                    style={{
+                      color: "green",
+                      fontSize: "15px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {event?.attendees?.length}
+                  </span>
+                </p>
                 <div className="event-actions">
-                  <button>Join Event</button>
+                  <button onClick={() => joinEvent(event._id, userId)}>
+                    Join Event
+                  </button>
                   <button onClick={() => handleDelete(event._id)}>
                     Delete
                   </button>
